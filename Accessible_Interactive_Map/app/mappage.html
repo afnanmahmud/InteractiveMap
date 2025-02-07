@@ -2,6 +2,53 @@
 <html lang="en">
 <head>
     <h1>Interactive Map</h1>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-fields {
+            display: flex;
+            gap: 10px;
+            flex-grow: 1;
+        }
+        .nav-fields input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .menu-button {
+            padding: 10px 15px;
+            background: #FEC629;
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #map {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            background: lightgray;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Map</title>
@@ -10,6 +57,13 @@
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
 </head>
 <body>
+    <div class="top-bar">
+        <div class="nav-fields">
+            <input type="text" id="start" name="start" placeholder="Start Point" required>
+            <input type="text" id="end" name="end" placeholder="End Point" required>
+        </div>
+        <button class="menu-button">Menu</button>
+    </div>
     <div id="map" style="height: 1000px;"></div>
     <script>
         // Initialize map
