@@ -1,30 +1,29 @@
 // Coordinates for Kennesaw State University and Atlanta, GA
-const kennesawCoords = [-84.58308, 34.0384]; // Kennesaw State University
-const atlantaCoords = [-84.5196, 33.9380]; // Atlanta, GA
+const kennesawCoords = [-84.58308, 34.0384]; 
+const atlantaCoords = [-84.5196, 33.9380]; 
 
-// Create the OpenLayers map
 const map = new ol.Map({
   target: 'map', // The div where the map will be rendered
   layers: [
     new ol.layer.Tile({
-      source: new ol.source.OSM(), // Using OpenStreetMap as the base layer
+      source: new ol.source.OSM(),
     }),
     new ol.layer.Vector({
       source: new ol.source.Vector({
         features: [
-          // Create a marker for Kennesaw State University
+          
           new ol.Feature({
             geometry: new ol.geom.Point(ol.proj.fromLonLat(kennesawCoords)), // Kennesaw
           }),
-          // Create a marker for Atlanta
+         
           new ol.Feature({
             geometry: new ol.geom.Point(ol.proj.fromLonLat(atlantaCoords)), // Atlanta
           }),
-          // Create a route (line) from Kennesaw to Atlanta
+          
           new ol.Feature({
             geometry: new ol.geom.LineString([
-              ol.proj.fromLonLat(kennesawCoords), // Kennesaw State University
-              ol.proj.fromLonLat(atlantaCoords), // Atlanta, GA
+              ol.proj.fromLonLat(kennesawCoords),
+              ol.proj.fromLonLat(atlantaCoords), 
             ]),
           }),
         ],
