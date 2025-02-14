@@ -5,7 +5,6 @@ const apiKey = '5b3ce3597851110001cf6248a1d686e75cef4e86a9782464ccdb71cf';
     let startCoords = null;
     let endCoords = null;
 
-    
     var map = new ol.Map({
       target: 'map',
       layers: [
@@ -26,7 +25,6 @@ const apiKey = '5b3ce3597851110001cf6248a1d686e75cef4e86a9782464ccdb71cf';
       }
     });
 
-    
     function geocodeLocation(query) {
       return fetch(`${geocodeApiUrl}?api_key=${apiKey}&text=${query}`)
         .then(response => response.json())
@@ -43,6 +41,7 @@ const apiKey = '5b3ce3597851110001cf6248a1d686e75cef4e86a9782464ccdb71cf';
           console.error("Error during geocoding:", error);
         });
     }
+
     function getRoute(startLonLat, endLonLat) {
       const payload = {
         coordinates: [startLonLat, endLonLat]
@@ -67,6 +66,7 @@ const apiKey = '5b3ce3597851110001cf6248a1d686e75cef4e86a9782464ccdb71cf';
         console.error('Error fetching route:', error);
       });
     }
+
     function displayRoute(routeGeoJson) {
       map.getLayers().forEach(layer => {
         if (layer instanceof ol.layer.Vector) {
