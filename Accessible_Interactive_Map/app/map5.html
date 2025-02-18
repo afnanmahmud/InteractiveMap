@@ -2,29 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>KSU Map</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@latest/ol.css" />
   <style>
-    #map {
-      width: 100%;
-      height: 800px;
+    #find-route {
+      border-style: solid;
+      height: 40px;
     }
+    #start {
+      margin-left: 35px;
+      width: 35%;
+      height: 40px
+    }
+    #end {
+      margin-left:15px;
+      width: 35%;
+      height: 40px
+    }
+    #map {
+      height: 675px;
+      margin: auto;
+      width: 95%;
+      border-style: groove;
+    }
+    #mid {
+      margin-left:15px;
+      scale:1.5;
+      height: 15px
+    }
+
   </style>
 </head>
 <body>
-  <h2>KSU Interactive Map</h2>
-  <div class="search-container">
-    <label for="start-location">Start Location:</label>
+  <br>
+  <br>
+  <div class="top-bar">
     <div class="nav-fields">
-      <input class="nav-input-field" type="text" id="start" name="start" placeholder="Start Point" required>
-      <input class="nav-input-field" type="text" id="end" name="end" placeholder="End Point" required>
+        <input class="nav-input-field" type="text" id="start" name="start" placeholder="Start" required>
+        <img src ="https://cdn-icons-png.flaticon.com/128/18589/18589684.png" id="mid" alt="load">
+        <input class="nav-input-field" type="text" id="end" name="end" placeholder="End" required>
+        <button id="find-route">Find Route</button>
+    </div>
   </div>
-    <br/>
-    <button id="find-route">Find Route</button>
-  </div>
+  <br>
   <div id="map"></div>
   <script src="https://cdn.jsdelivr.net/npm/ol@latest/dist/ol.js"></script>
   <script src = "main.js"></script>
+
+<br>
 </body>
 </html>
