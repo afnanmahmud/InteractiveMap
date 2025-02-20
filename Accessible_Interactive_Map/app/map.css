@@ -1,0 +1,25 @@
+#find-route {
+  border-style: solid;
+  height: 40px;
+}
+#start {
+  margin-left: 35px;
+  width: 35%;
+  height: 40px
+}
+#end {
+  margin-left:15px;
+  width: 35%;
+  height: 40px
+}
+#map {
+  height: 675px;
+  margin: auto;
+  width: 95%;
+  border-style: groove;
+}
+#mid {
+  margin-left:15px;
+  scale:1.5;
+  height: 15px
+}
