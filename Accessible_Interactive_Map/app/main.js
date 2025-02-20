@@ -5,16 +5,15 @@ const geocodeApiUrl = 'https://api.openrouteservice.org/geocode/search';
 let startCoords = null;
 let endCoords = null;
 
-// Create the map
 var map = new ol.Map({
   target: 'map',
   layers: [
     new ol.layer.Tile({
-      source: new ol.source.OSM() // OpenStreetMap layer
+      source: new ol.source.OSM()
     })
   ],
   view: new ol.View({
-    center: ol.proj.fromLonLat([-84.5816, 34.0381]), 
+    center: ol.proj.fromLonLat([37.41, 8.82]),
     zoom: 16.5
   })
 });
@@ -29,6 +28,7 @@ function trackUserLocation() {
     tracking: true,  // Enable continuous tracking
     projection: map.getView().getProjection()
   });
+
   geolocation.on('change:position', function () {
     const userCoords = geolocation.getPosition();
     if (userCoords) {
@@ -42,12 +42,14 @@ function trackUserLocation() {
       map.getView().setCenter(userCoords);
     }
   });
+
   geolocation.on('error', function (error) {
     console.error('Geolocation error:', error.message);
     alert('Could not access location. Please enable location services.');
   });
 }
-// Update the user marker
+
+// Function to update the user marker
 function updateUserMarker(lonLat) {
   userVectorSource.clear(); // Remove previous marker
 
@@ -55,6 +57,7 @@ function updateUserMarker(lonLat) {
     geometry: new ol.geom.Point(ol.proj.fromLonLat(lonLat)),
     name: "You are here"
   });
+
   const markerStyle = new ol.style.Style({
     image: new ol.style.Icon({
       src: 'https://cdn-icons-png.flaticon.com/128/884/884094.png', // User location icon
@@ -65,18 +68,21 @@ function updateUserMarker(lonLat) {
   marker.setStyle(markerStyle);
   userVectorSource.addFeature(marker); // Add updated marker
 }
+
 // Start tracking user location
 trackUserLocation();
+
 
 // Handle search button click
 document.getElementById('find-route').addEventListener('click', function() {
   if (endCoords) {
-    getRoute(startCoords, endCoords); // Fetch route 
+    getRoute(startCoords, endCoords); // Fetch route if both coordinates are set
   } else {
     alert("Please enter both start and end locations.");
   }
 });
-// Search for location 
+
+// Search for location using OpenRouteService Geocoding API
 function geocodeLocation(query) {
   return fetch(`${geocodeApiUrl}?api_key=${apiKey}&text=${query}`)
     .then(response => response.json())
@@ -93,26 +99,14 @@ function geocodeLocation(query) {
       console.error("Error during geocoding:", error);
     });
 }
-function trackMe(view) {
-        var geolocation = new ol.Geolocation({
-            tracking: true
-        });
-        geolocation.on('change:position', function (evt) {
-            var coordinate = geolocation.getPosition();
-            userLonLat = coordinate;
-            setMarker({
-                longitude: coordinate[0],
-                latitude: coordinate[1],
-                id: -1
-            }, '/assets/marker-user.png', 1000);
-        });
-    };
-// Add a marker to the map
+
+// Function to add a marker to the map
 function addMarker(lonLat, label) {
   const marker = new ol.Feature({
     geometry: new ol.geom.Point(ol.proj.fromLonLat(lonLat)),
     name: label
   });
+
   const markerStyle = new ol.style.Style({
     image: new ol.style.Icon({
       src: 'https://cdn-icons-png.flaticon.com/128/9131/9131546.png', 
@@ -122,20 +116,23 @@ function addMarker(lonLat, label) {
   });
 
   marker.setStyle(markerStyle);
+
   const vectorSource = new ol.source.Vector({
     features: [marker]
   });
+
   const vectorLayer = new ol.layer.Vector({
     source: vectorSource
   });
+
   map.addLayer(vectorLayer);
 }
-// Add a marker to the map
 function addMarker2(lonLat, label) {
   const marker = new ol.Feature({
     geometry: new ol.geom.Point(ol.proj.fromLonLat(lonLat)),
     name: label
   });
+
   const markerStyle = new ol.style.Style({
     image: new ol.style.Icon({
       src: 'https://cdn-icons-png.flaticon.com/128/7976/7976202.png',
@@ -143,17 +140,22 @@ function addMarker2(lonLat, label) {
       
     })
   });
+
   marker.setStyle(markerStyle);
+
   const vectorSource = new ol.source.Vector({
     features: [marker]
   });
+
   const vectorLayer = new ol.layer.Vector({
     source: vectorSource
   });
+
   map.addLayer(vectorLayer);
 }
 
-// Get the route between start and end coordinates
+
+// Function to get the route between start and end coordinates
 function getRoute(startLonLat, endLonLat) {
   const payload = {
     coordinates: [startLonLat, endLonLat]
